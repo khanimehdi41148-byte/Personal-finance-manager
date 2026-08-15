@@ -1,33 +1,27 @@
 class Transaction:
-    def __init__(
-            self,
-            transaction_id,
-            transaction_type,
-            description,
-            amount,
-            category,
-            date
-    ):
-        self.transaction_id = id
-        self.transaction_type = type
+    def __init__(self, transaction_id, transaction_type, description, amount, category, date):
+
+        self.transaction_id = transaction_id
+        self.transaction_type = transaction_type
         self.description = description
         self.amount = amount
         self.category = category
         self.date = date
+
     def to_dict(self):
-        return (
-            "id": self.id,
-            "type": self.type,
+        return(
+            "id": self.transaction_id,
+            "type": self.transaction_type,
             "description": self.description,
             "amount": self.amount,
             "category": self.category,
             "date": str(self.date)
-            )
+        )
 
     def __str__(self):
         return (
-            f"Id: {self.id} | "
-            f"Type: {self.type} | "
+            f"Id: {self.transaction_id} | "
+            f"Type: {self.transaction_type} | "
             f"Description: {self.description} | "
             f"Amount: {self.amount} | "
             f"Category: {self.category} | "
@@ -41,11 +35,9 @@ class FinanaceManager:
         self.transactions = []
 
     def get_next_id(self):
-        if not self.transaction:
+        if not self.transactions:
             return 1
-        return max(
-            transaction.id for transaction in self.transactions
-            )+1
+        return max(transaction.transaction_id for transaction in self.transactions)+1
 
     def add_transaction(self, transaction):
         self.transactions.append(transaction)
@@ -63,7 +55,7 @@ class FinanaceManager:
         if amount <= 0:
             print("Amount must be greater than 0.")
             return
-        catrgory = input("Category").strip()
+        category = input("Category").strip()
         if not category:
             print("category cannot empty")
             return
@@ -106,7 +98,7 @@ class FinanaceManager:
         self.add_transaction(transaction)
         print("Expense added successfully")
 
-    def remove_transaction(Self, index):
+    def remove_transaction(self, index):
         try:
             index = int(index) -1
         except ValueError:
@@ -148,7 +140,7 @@ class FinanaceManager:
     def calculate_balance(self):
         balance = 0
         for transaction in self.transactions:
-            if transaction == "income":
+            if transaction.type == "income":
                 balance += transaction.amount
             elif transaction.type == "expense":
                 balance -= transaction.amount
@@ -156,7 +148,8 @@ class FinanaceManager:
 
     def total_income(self):
         total = 0
-        for transaction in self.transaction:
-            if transaction.type == "expense":
+        for transaction in self.transactions:
+            if transaction.type == "income":
                 total += transaction.amount
         return total
+
