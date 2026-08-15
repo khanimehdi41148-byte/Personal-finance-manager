@@ -153,3 +153,10 @@ class FinanaceManager:
             elif transaction.type == "expense":
                 balance -= transaction.amount
         return balance
+
+    def total_income(self):
+        total = 0
+        for transaction in self.transaction:
+            if transaction.type == "expense":
+                total += transaction.amount
+        return total
