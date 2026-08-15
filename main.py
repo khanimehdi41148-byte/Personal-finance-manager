@@ -135,3 +135,12 @@ class FinanaceManager:
                 found = True
         if not found:
             print("Transaction not found")
+
+    def show_transactions(self):
+        if not self.transactions:
+            print("no transaction")
+            return
+
+        print("Transactions: ")
+        for i, transaction in enumerate(self.transactions, start=1):
+            print(f"{i}. {transaction}")
