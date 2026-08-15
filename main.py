@@ -117,3 +117,21 @@ class FinanaceManager:
             print(f"{removed.description} deleted")
         else:
             print("Number not found")
+
+    def search_transaction(self):
+        search_term = input("Description or Category: ").strip()
+        if not search_term:
+            print("search_term cannot be empty")
+            return
+        found = False
+
+        for transaction in self.transactions:
+            if search_term.lower() in transaction.description.lower():
+                print(transaction)
+                found = True
+
+            elif search_term.lower() in transaction.category.lower():
+                print(transaction)
+                found = True
+        if not found:
+            print("Transaction not found")
