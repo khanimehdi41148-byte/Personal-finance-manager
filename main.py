@@ -144,3 +144,12 @@ class FinanaceManager:
         print("Transactions: ")
         for i, transaction in enumerate(self.transactions, start=1):
             print(f"{i}. {transaction}")
+
+    def calculate_balance(self):
+        balance = 0
+        for transaction in self.transactions:
+            if transaction == "income":
+                balance += transaction.amount
+            elif transaction.type == "expense":
+                balance -= transaction.amount
+        return balance
