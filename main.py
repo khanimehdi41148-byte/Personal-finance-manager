@@ -1,4 +1,4 @@
-class transaction:
+class Transaction:
     def __init__(
             self,
             transaction_id,
@@ -15,17 +15,17 @@ class transaction:
         self.category = category
         self.date = date
     def to_dict(self):
-        return(
+        return (
             "id": self.id,
             "type": self.type,
             "description": self.description,
             "amount": self.amount,
             "category": self.category,
             "date": str(self.date)
-        )
+            )
 
     def __str__(self):
-        return(
+        return (
             f"Id: {self.id} | "
             f"Type: {self.type} | "
             f"Description: {self.description} | "
@@ -33,3 +33,75 @@ class transaction:
             f"Category: {self.category} | "
             f"Date: {self.date} | "
         )
+import json
+from datetime import date
+class FinanaceManager:
+    def __init__(self, filename="finance.json"):
+        self.filename = filename
+        self.transactions = []
+
+    def get_next_id(self):
+        if not self.transaction:
+            return 1
+        return max(
+            transaction.id for transaction in self.transactions
+            )+1
+
+    def add_transaction(self, transaction):
+        self.transactions.append(transaction)
+
+    def add_income(self):
+        description = input("Description: ").strip()
+        if not description:
+            print("Description cannot be empty")
+            return
+        try:
+            amount = float(input("Amount: "))
+        except ValueError:
+            print("invalid amount")
+            return
+        if amount <= 0:
+            print("Amount must be greater than 0.")
+            return
+        catrgory = input("Category").strip()
+        if not category:
+            print("category cannot empty")
+            return
+        transaction = Transaction(
+            self.get_next_id(),
+            "income",
+            description,
+            amount,
+            category,
+            date.today()
+        )
+        self.add_transaction(transaction)
+        print("Income successfully")
+
+    def add_expense(self):
+        description = input("Description: ").strip().lower()
+        if not description:
+            print("description cannot be empty")
+            return
+        try:
+            amount = float(input("Amount: "))
+        except ValueError:
+            print("Invalid amount!")
+            return
+        if amount <= 0:
+            print("Amount must be greater than 0.")
+            return
+        category = input("Category: ").strip()
+        if not category:
+            print("category cannot be empty")
+            return
+        transaction = Transaction(
+            self.get_next_id(),
+            "expense",
+            description,
+            amount,
+            category,
+            date.today()
+        )
+        self.add_transaction(transaction)
+        print("Expense added successfully")
