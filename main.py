@@ -105,3 +105,15 @@ class FinanaceManager:
         )
         self.add_transaction(transaction)
         print("Expense added successfully")
+
+    def remove_transaction(Self, index):
+        try:
+            index = int(index) -1
+        except ValueError:
+            print("Invalid index!")
+            return
+        if 0 <= index < len(self.transactions):
+            removed = self.transactions.pop(index)
+            print(f"{removed.description} deleted")
+        else:
+            print("Number not found")
